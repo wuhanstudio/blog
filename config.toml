@@ -50,7 +50,7 @@ defaultContentLanguageInSubdir = false
 
 # 自定义参数
 [params]
-    home = "https://wuhanstudio.cc"
+    home = "https://blog.wuhanstudio.uk"
     description = "Description"
     keywords = "Keywords"
     # 默认图片

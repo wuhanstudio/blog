@@ -1,0 +1,3 @@
+[submodule "themes\\hugo-theme-walden"]
+	path = themes\\hugo-theme-walden
+	url = https://github.com/wuhanstudio/hugo-theme-walden

@@ -1,0 +1,103 @@
+# 生成网站根目录的地址
+baseURL = "https://blog.wuhanstudio.uk/"
+
+# 主题
+theme = "hugo-theme-walden"
+
+# 列表分页基数
+paginate = 10
+
+# 多语言设置
+defaultContentLanguage = "en"
+defaultContentLanguageInSubdir = false
+
+[language]
+
+    [languages.en]
+        title = "WuhanStudio"
+        languageName = "English"
+        languageCode = "en-US"
+        weight = 1
+
+        
+        # 站主信息
+        [languages.en.author]
+            name = "Han Wu"
+            avatar = "images/avatar.jpg"
+            description = "Hi, I'm a Ph.D. Student at the University of Exeter in the UK for Deep Learning Security in Autonomous Systems. Prior research experience at RT-Thread, LAIX, Xilinx."
+            email = "wuhanstudio@qq.com"
+        
+        # 主菜单
+        [languages.en.menus]
+
+            [[languages.en.menus.main]]
+                identifier = "home"
+                name = "Home"
+                url = "/"
+                weight = 10
+
+            [[languages.en.menus.main]]
+                identifier = "blog"
+                name = "Blog"
+                url = "/blog/"
+                weight = 20
+
+            [[languages.en.menus.main]]
+                identifier = "Research"
+                name = "Research"
+                url = "https://wuhanstudio.uk"
+                weight = 30
+
+# 自定义参数
+[params]
+    home = "https://wuhanstudio.cc"
+    description = "Description"
+    keywords = "Keywords"
+    # 默认图片
+    headline = "images/headline/default.jpg"
+    thumbnail = "images/thumbnail/default.jpg"
+
+# 用于渲染的参数
+[markup]
+    defaultMarkdownHandler = "goldmark"
+    [markup.goldmark]
+        [markup.goldmark.extensions]
+            definitionList = true
+            footnote = true
+            linkify = true
+            strikethrough = true
+            table = true
+            taskList = true
+            typographer = true
+        [markup.goldmark.parser]
+            attribute = true
+            autoHeadingID = true
+            autoHeadingIDType = "github"
+        [markup.goldmark.renderer]
+            hardWraps = false
+            unsafe = true
+            xHTML = false
+    [markup.highlight]
+        codeFences = true
+        guessSyntax = true
+        hl_Lines = ""
+        lineNoStart = 1
+        lineNos = true
+        lineNumbersInTable = false
+        noClasses = true
+        style = "monokai"
+        tabWidth = 4
+    [markup.tableOfContents]
+        endLevel = 3
+        ordered = false
+        startLevel = 2
+
+
+# 用于 Hugo theme 发布的参数
+[module]
+  [module.hugoVersion]
+    extended = true
+    min = "0.101.0"
+
+
+

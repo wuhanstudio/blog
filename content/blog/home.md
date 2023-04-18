@@ -5,7 +5,7 @@ draft: false
 author: "Han Wu"
 categories: ""
 tags: [""]
-thumbnail: "images/thumbnail/hugo.jpg"
+thumbnail: "images/thumbnail/carla.png"
 headline: 
     enabled: true
     background: ""

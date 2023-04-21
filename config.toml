@@ -51,6 +51,7 @@ defaultContentLanguageInSubdir = false
 # 自定义参数
 [params]
     home = "https://blog.wuhanstudio.uk"
+    research = "https://wuhanstudio.uk"
     description = "Description"
     keywords = "Keywords"
     # 默认图片
@@ -98,6 +99,4 @@ defaultContentLanguageInSubdir = false
   [module.hugoVersion]
     extended = true
     min = "0.101.0"
-
-
 

@@ -7,7 +7,8 @@ categories: ""
 tags: [""]
 thumbnail: "images/thumbnail/carla.png"
 headline: 
-    enabled: true
+    pin: true
+    enabled: false
     background: ""
 ---
 

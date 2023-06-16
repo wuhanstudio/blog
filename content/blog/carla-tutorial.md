@@ -109,6 +109,10 @@ The first example `01_get_started.py` (~10 lines of code) spawns a vehicle in au
 
 ![](https://wuhanstudio.nyc3.cdn.digitaloceanspaces.com/blog/carla_tutorial/01_get_started.gif)
 
+```
+python 01_get_started.py
+```
+
 The implementation is quite simple. We first connect to the CARLA Simulator listening on port 2000.
 
 ```
@@ -178,6 +182,10 @@ As you can see in the video below, the client's viewpoint synchronously follows 
 
 ![](https://wuhanstudio.nyc3.cdn.digitaloceanspaces.com/blog/carla_tutorial/02_sync_mode.gif)
 
+```
+python 02_sync_mode.py
+```
+
 {{< hint warning>}}
 **Warning**  
 In a multiclient architecture, only one client should tick. Many client ticks will create inconsistencies between server and clients.
@@ -212,6 +220,10 @@ world.apply_settings(settings)
 In the first example, we covered how to spawn and follow a vehicle, while the second example focused on the difference between asynchronous and synchronous modes. In autonomous driving applications, accurate object detection and tracking play a vital role in perception that help the vehicle understand the environment. Now, let's attach a camera to the vehicle and utilize OpenCV to display the captured images.
 
 ![](https://wuhanstudio.nyc3.cdn.digitaloceanspaces.com/blog/carla_tutorial/03_RGB_camera.gif)
+
+```
+python 03_RGB_camera.py
+```
 
 Similar to the vehicle spawning, we first get the blueprint of an RGB camera from the library. CARLA offers support for various camera types, and we'll explore additional options in the next example. The camera floats behind the vehicle (`carla.Location(x=-5, z=3)`) and looks downward (`carla.Rotation(pitch=-20)`). During camera spawning, we can specify its attachment to the vehicle using the parameter attach_to=vehicle.
 
@@ -259,7 +271,7 @@ while True:
     	break
 ```
 
-**Similarly, do not forget to stop and destroy the camera before quitting the program.** The full code of this example is available on [GitHub](https://github.com/wuhanstudio/carla-tutorial/blob/master/03_RGB_camera.py).
+**Similarly, do not forget to stop and destroy the camera before quitting the program.**
 
 ```
 # Clear the spawned vehicle and camera
@@ -278,8 +290,6 @@ def clear():
     cv2.destroyAllWindows()
 ```
 
-
-
 <br />
 
 <hr />
@@ -297,6 +307,10 @@ for bp in bp_lib.filter("camera"):
 At the time of writing, CARLA supports six types of cameras: RGB, Semantic Segmentation, Instance Segmentation, Depth, DVS, and Optical Flow camera.
 
 ![](https://wuhanstudio.nyc3.cdn.digitaloceanspaces.com/blog/carla_tutorial/04_more_cameras.gif)
+
+```
+python 04_more_cameras.py
+```
 
 We follow the same procedure to spawn six cameras from blueprints, and then attach all cameras to the vehicle.
 
@@ -329,7 +343,7 @@ opt_camera_bp = world.get_blueprint_library().find('sensor.camera.optical_flow')
 opt_camera = world.spawn_actor(opt_camera_bp, camera_init_trans, attach_to=vehicle)
 ```
 
-Similarly, we use the **Queue** data structure to store sensor data. The only difference is how we handle different types of sensor data. As this tutorial focuses on getting familiar with APIs, it is recommended to refer to the official documentation for comprehensive details on [sensor data](https://carla.readthedocs.io/en/latest/core_sensors/#cameras).
+Similarly, we use the **Queue** data structure to store sensor data. The only difference is how we handle different types of sensor data. As this tutorial focuses on getting familiar with APIs, **it is recommended to refer to the official documentation for comprehensive details on [sensor data](https://carla.readthedocs.io/en/latest/core_sensors/#cameras)**.
 
 ```
 # Define camera callbacks                       
@@ -380,7 +394,9 @@ def opt_camera_callback(data, opt_image_queue):
 
 ![](https://wuhanstudio.nyc3.cdn.digitaloceanspaces.com/blog/carla_tutorial/05_open3d_lidar.gif)
 
-
+```
+python 05_open3d_lidar.py
+```
 
 <br />
 
@@ -392,7 +408,9 @@ def opt_camera_callback(data, opt_image_queue):
 
 ![](https://wuhanstudio.nyc3.cdn.digitaloceanspaces.com/blog/carla_tutorial/06_traffic_manager.gif)
 
-
+```
+python 06_trafic_manager.py
+```
 
 <br />
 
@@ -404,7 +422,9 @@ def opt_camera_callback(data, opt_image_queue):
 
 ![](https://wuhanstudio.nyc3.cdn.digitaloceanspaces.com/blog/carla_tutorial/07_3d_bounding_boxes.gif)
 
-
+```
+python 07_3d_bounding_boxes.py
+```
 
 <br />
 
@@ -416,7 +436,9 @@ def opt_camera_callback(data, opt_image_queue):
 
 ![](https://wuhanstudio.nyc3.cdn.digitaloceanspaces.com/blog/carla_tutorial/08_draw_waypoints.gif)
 
-
+```
+python 08_draw_waypoints.py
+```
 
 <br />
 
@@ -428,6 +450,15 @@ def opt_camera_callback(data, opt_image_queue):
 
 ![](https://wuhanstudio.nyc3.cdn.digitaloceanspaces.com/blog/carla_tutorial/09_basic_navigation.gif)
 
+```
+python 09_basic_navigation.py
+```
 
+
+
+
+<br />
+
+<hr />
 
 ## References

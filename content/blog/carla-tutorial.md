@@ -150,7 +150,7 @@ while True:
         time.sleep(0.005)
 ```
 
-The last thing I would like to mention is that: Do not forget to destroy the vehicle before terminating the program. 
+The last thing I would like to mention is that: **Do not forget to destroy the vehicle before terminating the program**. 
 
 ```
 vehicle.destroy()
@@ -194,7 +194,7 @@ settings.fixed_delta_seconds = 0.05
 world.apply_settings(settings)
 ```
 
-Don't forget to change the mode back to synchronous before terminating the program. Because if the simulation runs in synchronous mode, and no client sends out tick signals, the spectator will stop the simulation and freeze.
+**Don't forget to change the mode back to synchronous before terminating the program.** Because if the simulation runs in synchronous mode, and no client sends out tick signals, the spectator will stop the simulation and freeze.
 
 ```
 settings = world.get_settings()
@@ -209,9 +209,74 @@ world.apply_settings(settings)
 
 ## Example 03: RGB Camera
 
-
+In the first example, we covered how to spawn and follow a vehicle, while the second example focused on the difference between asynchronous and synchronous modes. In autonomous driving applications, accurate object detection and tracking play a vital role in perception that help the vehicle understand the environment. Now, let's attach a camera to the vehicle and utilize OpenCV to display the captured images.
 
 ![](https://wuhanstudio.nyc3.cdn.digitaloceanspaces.com/blog/carla_tutorial/03_RGB_camera.gif)
+
+Similar to the vehicle spawning, we first get the blueprint of an RGB camera from the library. CARLA offers support for various camera types, and we'll explore additional options in the next example. The camera floats behind the vehicle (`carla.Location(x=-5, z=3)`) and looks downward (`carla.Rotation(pitch=-20)`). During camera spawning, we can specify its attachment to the vehicle using the parameter attach_to=vehicle.
+
+```
+## Part 2
+
+# Create a camera floating behind the vehicle
+camera_init_trans = carla.Transform(carla.Location(x=-5, z=3), carla.Rotation(pitch=-20))
+
+# Create a RGB camera
+rgb_camera_bp = world.get_blueprint_library().find('sensor.camera.rgb')
+camera = world.spawn_actor(rgb_camera_bp, camera_init_trans, attach_to=vehicle)
+```
+
+It is also possible to change the camera's attributes, such as FOV (Field of View) and shutter speed (see [Documentations](https://carla.readthedocs.io/en/latest/ref_sensors/#rgb-camera)). We can get the camera's resolution using the function `get_attribute()`.
+
+```
+# Get gamera dimensions and initialise dictionary                       
+image_w = rgb_camera_bp.get_attribute("image_size_x").as_int()
+image_h = rgb_camera_bp.get_attribute("image_size_y").as_int()
+```
+
+To receive image data from the camera, we need to define a callback function. This function is invoked whenever a new image arrives and is responsible for handling the data. Within the callback function, we store the image data using the **Queue** data structure. The function `put()` allows us to add an image to the Queue, while 'get()' enables retrieving the image data.
+
+```
+# Callback stores sensor data in a dictionary for use outside callback                         
+def camera_callback(image, rgb_image_queue):
+    rgb_image_queue.put(np.reshape(np.copy(image.raw_data), (image.height, image.width, 4)))
+
+# Start camera recording
+rgb_image_queue = queue.Queue()
+camera.listen(lambda image: camera_callback(image, rgb_image_queue))
+```
+
+Lastly, in the `while` loop, we can retrieve the image data from the Queue and displays the image using `cv2.imshow()`.
+
+```
+while True:
+	# Display RGB camera image
+    cv2.imshow('RGB Camera', rgb_image_queue.get())
+
+    # Quit if user presses 'q'
+    if cv2.waitKey(1) == ord('q'):
+    	clear()
+    	break
+```
+
+**Similarly, do not forget to stop and destroy the camera before quitting the program.** The full code of this example is available on [GitHub](https://github.com/wuhanstudio/carla-tutorial/blob/master/03_RGB_camera.py).
+
+```
+# Clear the spawned vehicle and camera
+def clear():
+
+    vehicle.destroy()
+    print('Vehicle Destroyed.')
+    
+    camera.stop()
+    camera.destroy()
+    print('Camera Destroyed. Bye!')
+
+    for actor in world.get_actors().filter('*vehicle*'):
+        actor.destroy()
+
+    cv2.destroyAllWindows()
+```
 
 
 
@@ -221,11 +286,89 @@ world.apply_settings(settings)
 
 ## Example 04: More Cameras
 
+This example introduces how to capture sensor data from multiple cameras. You can get all supported camera types from the blueprint library.
 
+```
+# Print all camera types
+for bp in bp_lib.filter("camera"):
+    print(bp.id)
+```
+
+At the time of writing, CARLA supports six types of cameras: RGB, Semantic Segmentation, Instance Segmentation, Depth, DVS, and Optical Flow camera.
 
 ![](https://wuhanstudio.nyc3.cdn.digitaloceanspaces.com/blog/carla_tutorial/04_more_cameras.gif)
 
+We follow the same procedure to spawn six cameras from blueprints, and then attach all cameras to the vehicle.
 
+```
+# Create a camera floating behind the vehicle
+camera_init_trans = carla.Transform(carla.Location(x=-5, z=3), carla.Rotation(pitch=-20))
+
+# Create a RGB camera
+rgb_camera_bp = world.get_blueprint_library().find('sensor.camera.rgb')
+rgb_camera = world.spawn_actor(rgb_camera_bp, camera_init_trans, attach_to=vehicle)
+
+# Create a semantic segmentation camera
+seg_camera_bp = world.get_blueprint_library().find('sensor.camera.semantic_segmentation')
+seg_camera = world.spawn_actor(seg_camera_bp, camera_init_trans, attach_to=vehicle)
+
+# Create a instance segmentation camera
+ins_camera_bp = world.get_blueprint_library().find('sensor.camera.instance_segmentation')
+ins_camera = world.spawn_actor(ins_camera_bp, camera_init_trans, attach_to=vehicle)
+
+# Create a depth camera
+depth_camera_bp = world.get_blueprint_library().find('sensor.camera.depth')
+depth_camera = world.spawn_actor(depth_camera_bp, camera_init_trans, attach_to=vehicle)
+
+# Create a DVS camera
+dvs_camera_bp = world.get_blueprint_library().find('sensor.camera.dvs')
+dvs_camera = world.spawn_actor(dvs_camera_bp, camera_init_trans, attach_to=vehicle)
+
+# Create an optical flow camera
+opt_camera_bp = world.get_blueprint_library().find('sensor.camera.optical_flow')
+opt_camera = world.spawn_actor(opt_camera_bp, camera_init_trans, attach_to=vehicle)
+```
+
+Similarly, we use the **Queue** data structure to store sensor data. The only difference is how we handle different types of sensor data. As this tutorial focuses on getting familiar with APIs, it is recommended to refer to the official documentation for comprehensive details on [sensor data](https://carla.readthedocs.io/en/latest/core_sensors/#cameras).
+
+```
+# Define camera callbacks                       
+def rgb_camera_callback(image, rgb_image_queue):
+    rgb_image_queue.put(np.reshape(np.copy(image.raw_data), (image.height, image.width, 4)))
+
+def seg_camera_callback(image, seg_image_queue):
+    image.convert(carla.ColorConverter.CityScapesPalette)
+    seg_image_queue.put(np.reshape(np.copy(image.raw_data), (image.height, image.width, 4)))
+
+def ins_camera_callback(image, ins_image_queue):
+    ins_image_queue.put(np.reshape(np.copy(image.raw_data), (image.height, image.width, 4)))
+
+def depth_camera_callback(image, depth_image_queue):
+    image.convert(carla.ColorConverter.LogarithmicDepth)
+    depth_image_queue.put(np.reshape(np.copy(image.raw_data), (image.height, image.width, 4)))
+
+def dvs_camera_callback(data, dvs_image_queue):
+    dvs_events = np.frombuffer(data.raw_data, dtype=np.dtype([
+        ('x', np.uint16), ('y', np.uint16), ('t', np.int64), ('pol', np.bool_)
+    ]))
+
+    dvs_img = np.zeros((data.height, data.width, 4), dtype=np.uint8)
+
+    # Blue is positive, red is negative
+    dvs_img[dvs_events[:]['y'], dvs_events[:]['x'], dvs_events[:]['pol'] * 2] = 255
+
+    dvs_image_queue.put(dvs_img)
+
+def opt_camera_callback(data, opt_image_queue):
+    image = data.get_color_coded_flow()
+    height, width = image.height, image.width
+    image = np.frombuffer(image.raw_data, dtype=np.dtype("uint8"))
+    image = np.reshape(image, (height, width, 4))
+
+    opt_image_queue.put(image)
+```
+
+**Congratulations!**  By now, you have learned how to spawn vehicles and attach sensors to vehicles. You have also learned how to receive and display sensor data from CARLA simulator. The remaining examples explore various intriguing topics that are independent of each other. **Feel free to jump directly to the section that interests you the most.**
 
 <br />
 
@@ -285,3 +428,6 @@ world.apply_settings(settings)
 
 ![](https://wuhanstudio.nyc3.cdn.digitaloceanspaces.com/blog/carla_tutorial/09_basic_navigation.gif)
 
+
+
+## References

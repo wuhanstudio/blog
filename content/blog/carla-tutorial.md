@@ -390,7 +390,7 @@ def opt_camera_callback(data, opt_image_queue):
 
 ## Example 05: Open3D Lidar
 
-
+This example is available in the official CARLA [Video Tutorials](https://www.youtube.com/watch?v=om8klsBj4rc).
 
 ![](https://wuhanstudio.nyc3.cdn.digitaloceanspaces.com/blog/carla_tutorial/05_open3d_lidar.gif)
 
@@ -398,13 +398,15 @@ def opt_camera_callback(data, opt_image_queue):
 python 05_open3d_lidar.py
 ```
 
+
+
 <br />
 
 <hr />
 
 ## Example 06: Traffic Manager
 
-
+This example is available in the official CARLA [Tutorials](https://carla.readthedocs.io/en/0.9.14/tuto_G_traffic_manager/).
 
 ![](https://wuhanstudio.nyc3.cdn.digitaloceanspaces.com/blog/carla_tutorial/06_traffic_manager.gif)
 
@@ -412,19 +414,23 @@ python 05_open3d_lidar.py
 python 06_trafic_manager.py
 ```
 
+
+
 <br />
 
 <hr />
 
 ## Example 07: 3D Bounding Boxes
 
-
+This example is available in the official CARLA [Tutorials](https://carla.readthedocs.io/en/0.9.14/tuto_G_bounding_boxes/).
 
 ![](https://wuhanstudio.nyc3.cdn.digitaloceanspaces.com/blog/carla_tutorial/07_3d_bounding_boxes.gif)
 
 ```
 python 07_3d_bounding_boxes.py
 ```
+
+
 
 <br />
 
@@ -439,6 +445,8 @@ python 07_3d_bounding_boxes.py
 ```
 python 08_draw_waypoints.py
 ```
+
+
 
 <br />
 
@@ -456,9 +464,11 @@ python 09_basic_navigation.py
 
 
 
-
 <br />
 
 <hr />
 
 ## References
+
+- Carla Official Documentation: https://carla.readthedocs.io/en/0.9.14/tutorials/
+

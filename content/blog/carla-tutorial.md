@@ -1,5 +1,5 @@
 ---
-title: "Carla Simulator Tutorial (Python API)"
+title: "CARLA Simulator Tutorial (Python API)"
 date: 2023-06-15T14:54:26+01:00
 draft: false
 author: ""

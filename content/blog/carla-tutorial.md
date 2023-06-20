@@ -463,11 +463,16 @@ for ind in route_1_indices:
 traffic_manager.set_path(vehicle, route_1)
 ```
 
-![](https://carla.readthedocs.io/en/0.9.14/img/tuto_G_traffic_manager/set_paths.png)
+<img src="https://carla.readthedocs.io/en/0.9.14/img/tuto_G_traffic_manager/set_paths.png" width=40% />
 
-With physics calculations disabled, autopilot vehicles can **teleport around the map**. By default, physics calculations are enabled for all vehicles, which can be computationally expensive. To save some computational resources, we can enable the **Hybrid physics mode** using the API `TrafficManager.set_hybrid_physics_mode(True)` so that some autopilot vehicles won't do physics calculations (also means they can teleport).
+We can also use the traffic manager to save computational resources. By default, physics calculations are enabled for all vehicles, which can be computationally expensive. If we enable the **Hybrid physics mode**, not all autopilot vehicles will do physics calculations.
 
-In hybrid physics mode, whether or not physics calculations are enabled depends on the position of the hero vehicle, a vehicle tagged with `role_name='hero'`. Autopilot vehicles outside a certain radius of the hero vehicle will disable physics calculation, which means they can teleport. Of course, the hero vehicle (usually the ego agent) won't see them teleporting, so during autonomous driving simulation, we won't see vehicles disappear and appear through the camera attached to the hero vehicle, making the simulation more realistic while saving some computational resources.
+```
+# Enable hybrid physics mode to save computational resources.
+TrafficManager.set_hybrid_physics_mode(True)
+```
+
+In hybrid physics mode, whether or not physics calculations are enabled depends on the distance between the autopilot vehicle and the hero vehicle, a vehicle tagged with `role_name='hero'`. Autopilot vehicles outside a certain radius of the hero vehicle will disable physics calculation, **which means they can teleport** (very interesting). Of course, the hero vehicle (usually the ego agent) won't see them teleporting, so during autonomous driving simulation, we won't see vehicles disappear and reappear through the camera attached to the hero vehicle, making the simulation more realistic while saving some computational resources.
 
 You can find more details about traffic manager in the [official documentation](https://carla.readthedocs.io/en/latest/adv_traffic_manager/).
 

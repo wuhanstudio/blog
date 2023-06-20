@@ -11,7 +11,7 @@ headline:
     background: ""
 ---
 
-A step-by-step tutorial that uses 9 examples to help you get familiar with CARLA APIs.
+A step-by-step tutorial that uses 10 examples to help you get familiar with CARLA APIs.
 
 <!--more--> 
 
@@ -467,6 +467,20 @@ python 09_basic_navigation.py
 <br />
 
 <hr />
+
+## Example 10: Manual Control
+
+This example is available in the official CARLA [Tutorials](https://carla.readthedocs.io/en/latest/tuto_G_pygame/).
+
+
+![](https://wuhanstudio.nyc3.cdn.digitaloceanspaces.com/blog/carla_tutorial/10_manual_control.gif)
+
+
+```
+python 10_manual_control.py
+```
+
+
 
 ## References
 

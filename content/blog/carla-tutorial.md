@@ -408,13 +408,68 @@ python 05_open3d_lidar.py
 
 This example is available in the official CARLA [Tutorials](https://carla.readthedocs.io/en/0.9.14/tuto_G_traffic_manager/).
 
+In [example 01](#example-01-get-started), we learned how to set a vehicle to autopilot mode. You may wonder if we can control the behavior of an autopiloting vehicle. The answer is YES: The Traffic Manager (TM) controls vehicles in autopilot mode. For example, the traffic manager can change the probability of running a red light or set a pre-defined path.
+
+```
+# Autopilot
+vehicle.set_autopilot(True) 
+```
+
+
+
 ![](https://wuhanstudio.nyc3.cdn.digitaloceanspaces.com/blog/carla_tutorial/06_traffic_manager.gif)
 
 ```
 python 06_trafic_manager.py
 ```
 
+After connecting to the CARLA server that listens on port 2000, we can use `client.get_trafficmanager()` to get a traffic manager.
 
+```
+# Connect to the client and retrieve the world object
+client = carla.Client('localhost', 2000)
+world = client.get_world()
+
+# Set up the TM (default port: 8000)
+traffic_manager = client.get_trafficmanager()
+```
+
+{{< hint info >}}
+**Info**  
+It is worth noting that the **traffic manager runs on the client side**, which means it will listen on port 8000 on your local computer rather than on the server that runs the CARLA simulator.
+
+{{< /hint >}}
+
+As mentioned before, the traffic manager only manages vehicles in **autopilot mode**. Thus, we need to ensure the vehicle is in autopilot mode before the traffic manager takes over. Next, we can set the probability of running a red light using the API `traffic_manager.ignore_lights_percentage()`.
+
+```
+vehicle.set_autopilot(True)
+
+# Randomly set the probability that a vehicle will ignore traffic lights
+traffic_manager.ignore_lights_percentage(vehicle, random.randint(0,50))
+```
+
+By default, there is no goal for vehicles in autopilot mode, which means their path is endless. They randomly choose a direction at junctions. Using traffic manager, we can specify a path from a point list.
+
+```
+spawn_points = world.get_map().get_spawn_points()
+
+# Create route 1 from the chosen spawn points
+route_1_indices = [129, 28, 124, 33, 97, 119, 58, 154, 147]
+route_1 = []
+for ind in route_1_indices:
+    route_1.append(spawn_points[ind].location)
+
+traffic_manager.set_path(vehicle, route_1)
+```
+
+![](https://carla.readthedocs.io/en/0.9.14/img/tuto_G_traffic_manager/set_paths.png)
+
+With physics calculations disabled, autopilot vehicles can **teleport around the map**. By default, physics calculations are enabled for all vehicles, which can be computationally expensive. To save some computational resources, we can enable the **Hybrid physics mode** using the API `TrafficManager.set_hybrid_physics_mode(True)` so that some autopilot vehicles won't do physics calculations (also means they can teleport).
+
+In hybrid physics mode, whether or not physics calculations are enabled depends on the position of the hero vehicle, a vehicle tagged with `role_name='hero'`. Autopilot vehicles outside a certain radius of the hero vehicle will disable physics calculation, which means they can teleport. Of course, the hero vehicle (usually the ego agent) won't see them teleporting, so during autonomous driving simulation, we won't see vehicles disappear and appear through the camera attached to the hero vehicle, making the simulation more realistic while saving some computational resources.
+
+You can find more details about traffic manager in the [official documentation](https://carla.readthedocs.io/en/latest/adv_traffic_manager/).
 
 <br />
 

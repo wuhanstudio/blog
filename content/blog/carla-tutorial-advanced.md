@@ -11,10 +11,15 @@ headline:
     background: ""
 ---
 
-A step-by-step tutorial that uses 4 advanced examples to help you get familiar with CARLA APIs.
+A collection of autonomous driving tutorials in CARLA Simulator.
 
 <!--more--> 
 
+## Introduction
+
+After getting familiar with CARLA API and Scenario Runner for autonomous driving challenge, I plan to write a series of autonomous driving algorithms in CARLA Simulator, including control, perception, localization, prediction & planning. 
+
+For each advanced topic, I will create separate posts with detailed information. This page will serve as a hub, providing links to each specific topic for navigation purposes.
 
 ## Example 07: 3D Bounding Boxes
 
@@ -25,7 +30,6 @@ This example is available in the official CARLA [Tutorials](https://carla.readth
 ```
 python 07_3d_bounding_boxes.py
 ```
-
 
 
 <br />
@@ -59,22 +63,9 @@ python 09_basic_navigation.py
 ```
 
 
-
 <br />
 
 <hr />
-
-## Example 10: Manual Control
-
-This example is available in the official CARLA [Tutorials](https://carla.readthedocs.io/en/latest/tuto_G_pygame/).
-
-
-![](https://wuhanstudio.nyc3.cdn.digitaloceanspaces.com/blog/carla_tutorial/10_manual_control.gif)
-
-
-```
-python 10_manual_control.py
-```
 
 ## References
 

@@ -11,7 +11,7 @@ headline:
     background: ""
 ---
 
-A collection of autonomous driving tutorials in CARLA Simulator.
+A Collection of Autonomous Driving Tutorials in CARLA Simulator.
 
 <!--more--> 
 

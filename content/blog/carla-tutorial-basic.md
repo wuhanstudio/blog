@@ -11,7 +11,7 @@ headline:
     background: ""
 ---
 
-A step-by-step tutorial that uses 3 simple examples to help you get familiar with CARLA APIs.
+A Step-By-Step Tutorial that uses 3 Simple Examples to help you get familiar with CARLA APIs.
 
 <!--more--> 
 

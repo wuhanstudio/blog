@@ -15,8 +15,11 @@ A step-by-step tutorial that uses 3 intermediate examples to help you get famili
 
 <!--more--> 
 
-![](https://wuhanstudio.nyc3.cdn.digitaloceanspaces.com/blog/carla_tutorial/carla.gif)
+## Introduction
 
+In the [previous post](https://blog.wuhanstudio.uk/blog/carla-tutorial-basic/), I introduced how to connect to CARLA Simulator using Python API, the difference between synchronous and asynchronous mode, and how to get images from an RGB camera. In this post, I will introduce other types of cameras and sensors.
+
+More details will be updated soon.
 
 ## Example 04: More Cameras
 

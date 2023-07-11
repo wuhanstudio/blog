@@ -11,7 +11,7 @@ headline:
     background: ""
 ---
 
-A step-by-step tutorial that uses 3 intermediate examples to help you get familiar with CARLA APIs.
+Introduction to 6 Types of Cameras, Lidar, Traffic Manager, and Scenario Runner for Autonomous Driving Challenge.
 
 <!--more--> 
 

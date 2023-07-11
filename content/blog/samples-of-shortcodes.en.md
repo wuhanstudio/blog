@@ -1,7 +1,7 @@
 ---
 title: "Samples of Shortcodes"
 date: 2022-12-15T10:10:34+08:00
-draft: false
+draft: true
 author: "Homecat"
 categories: "Template"
 tags: ["Hugo"]

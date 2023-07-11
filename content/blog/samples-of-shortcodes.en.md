@@ -7,7 +7,7 @@ categories: "Template"
 tags: ["Hugo"]
 thumbnail: "images/thumbnail/hugo.jpg"
 headline: 
-    enabled: true
+    enabled: false
     background: ""
 ---
 

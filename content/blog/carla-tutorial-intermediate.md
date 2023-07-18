@@ -19,7 +19,13 @@ Introduction to 6 Types of Cameras, Lidar, Traffic Manager, and Scenario Runner 
 
 In the [previous post](https://blog.wuhanstudio.uk/blog/carla-tutorial-basic/), I introduced how to connect to CARLA Simulator using Python API, the difference between synchronous and asynchronous mode, and how to get images from an RGB camera. In this post, I will introduce other types of cameras and sensors.
 
-More details will be updated soon.
+The source code used in this tutorial is available on GitHub:
+
+```fallback
+git clone https://github.com/wuhanstudio/carla-tutorial
+```
+
+
 
 ## Example 04: More Cameras
 

@@ -22,7 +22,7 @@ A Step-By-Step Tutorial that uses 3 Simple Examples to help you get familiar wit
 
 ## CARLA Installation
 
-[**CARLA**](https://carla.org/) is an open-source simulator **(Unreal Engine)** for autonomous driving research. You can find the latest version of CARLA on the GitHub release page. At the time of writing, the latest version is v0.9.14.
+[**CARLA**](https://carla.org/)  **(Unreal Engine)** is an open-source simulator for autonomous driving research. You can find the latest version of CARLA on the GitHub release page. At the time of writing, the latest version is v0.9.14.
 
 https://github.com/carla-simulator/carla/releases
 
@@ -64,7 +64,7 @@ By default, the simulator launches a **spectator** with an empty world (no pedes
 
 ![](https://carla.readthedocs.io/en/latest/img/tuto_G_getting_started/flying_spectator.gif)
 
-We can spawn pedestrians and vehicles using the python client library.
+Next, let's spawn some pedestrians and vehicles using the python client library.
 
 
 

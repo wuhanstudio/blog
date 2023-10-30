@@ -43,15 +43,15 @@ defaultContentLanguageInSubdir = false
                 weight = 20
 
             [[languages.en.menus.main]]
-                identifier = "github"
-                name = "GitHub"
-                url = "https://github.com/wuhanstudio"
-                weight = 30
-
-            [[languages.en.menus.main]]
                 identifier = "Research"
                 name = "Research"
                 url = "https://wuhanstudio.uk"
+                weight = 30
+
+            [[languages.en.menus.main]]
+                identifier = "doc"
+                name = "文档"
+                url = "https://doc.wuhanstudio.cc"
                 weight = 40
 
 # 自定义参数

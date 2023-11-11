@@ -50,7 +50,7 @@ defaultContentLanguageInSubdir = false
 
             [[languages.en.menus.main]]
                 identifier = "doc"
-                name = "文档"
+                name = "文檔"
                 url = "https://doc.wuhanstudio.cc"
                 weight = 40
 

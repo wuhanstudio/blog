@@ -2,7 +2,7 @@
 title: "CARLA Simulator - Python API (Basic)"
 date: 2023-06-15T14:54:26+01:00
 draft: false
-author: "Han Wy"
+author: "Han Wu"
 categories: "Autonomous Driving"
 tags: ["CARLA"]
 thumbnail: "images/thumbnail/carla.png"

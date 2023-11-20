@@ -6,6 +6,7 @@ author: "Han Wu"
 categories: "Autonomous Driving"
 tags: ["CARLA"]
 thumbnail: "images/thumbnail/coordinate.png"
+math: true
 headline: 
     enabled: True
     background: ""
@@ -17,15 +18,21 @@ A summary of CARLA Coordinate System (Global, Camera, Image).
 
 ## Introduction
 
-Using the CARLA simulator, we can use Python API to obtain ground truth bounding boxes of each vehicle, thus saving the labeling time. To project a 3D vehicle onto the 2D image captured by the camera, we need to be familiar with the CARLA coordinate system 
+To project the location of a 3D vehicle $O_{world}=(x, y, z, 1)$ onto the 2D camera image $O_{image}=(u, v, w)$, we need to be familiar with the CARLA coordinate system.
+
+$$O_{image} = K[R|t] O_{world}$$
+
+- Global Coordinates: $O_{world}$ is available using the API **vehicle.get_location()**;
+- Extrinsic Matrix: $[R|t]$ is provided by the API **camera.get_transform().get_inverse_matrix()**;
+- Intrinsic Matrix: $K$ can be constructed from camera properties **(w, h, fov)**.
 
 ![](../../images/carla-coordinate/overview.png)
 
 ## Global Coordinate
 
-CARLA is developed using the Unreal Engine, which uses a coordinate system of **x-front , y-right , z-up**.
+CARLA is developed using the Unreal Engine, which uses a coordinate system of **x-front , y-right , z-up** (left-handed).
 
-We can get the world location (x, y, z) of a vehicle using the API `vehicle.get_location()`.
+We can get the world location (x, y, z, 1) of a vehicle using the API `vehicle.get_location()`.
 
 ```
 >> vehicle.get_location()
@@ -35,21 +42,33 @@ y: -7.242839813232422
 z: -0.005238113459199667
 ```
 
-## Sensor Coordinate
+## Extrinsinc Matrix
 
-To get the relative position of a vehicle to the camera, we need to do a transform:
+The extrinsic matrix calculates the position of a vehicle relative to the camera.
+
+$$O_{camera} = [R|t] O_{world}$$
 
 ```
-# Get the camera matrix 
+# Get the extrinsic matrix 
 world_2_camera = np.array(camera.get_transform().get_inverse_matrix())
 ```
 
-This is also known as the **extrinsic matrix**.
+## Intrinsic Matrix
 
+We also need the intrinsic matrix K to project the relative position $O_{camera}$ to image coordinates $O_{camera} = (u, v, w)$.
 
-## Image Coordinate (OpenCV)
+$$O_{image} = K O_{camera}$$
 
-To project the vehicle to image coordinates (u, v, w), we also need the **intrinsic matrix** K.
+Intrinsic Matrix: 
+
+$$
+K = 
+\begin{bmatrix}
+      f & 0 & \frac{w}{2} \\\\ 
+      0 & f & \frac{h}{2} \\\\ 
+      0 & 0 & 1
+\end{bmatrix}
+$$
 
 ```
 def build_projection_matrix(w, h, fov, is_behind_camera=False):
@@ -66,9 +85,9 @@ def build_projection_matrix(w, h, fov, is_behind_camera=False):
     return K
 ```
 
-Finally, we can do the projection:
+## Full Example:
 
-![](../../images/carla-coordinate/math.png)
+> Example 07: https://github.com/wuhanstudio/carla-tutorial
 
 ```
 def get_image_point(loc, K, w2c):

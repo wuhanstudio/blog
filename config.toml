@@ -25,7 +25,7 @@ defaultContentLanguageInSubdir = false
             name = "Han Wu"
             avatar = "images/avatar.jpg"
             description = "Hi, I'm a Ph.D. Student at the University of Exeter in the UK for Deep Learning Security in Autonomous Systems. Prior research experience at RT-Thread, LAIX, Xilinx."
-            email = "wuhanstudio@qq.com"
+            email = "wuhanstudios@gmail.com"
         
         # 主菜单
         [languages.en.menus]
